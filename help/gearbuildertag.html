@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GearBuilder Help</title>
+<style type="text/css">
+<!--
+@import url("style.css");
+-->
+</style>
+</head>
+
+<body class="twoColElsLtHdr">
+	<div id="container">
+		<div id="header">
+			<h1>GearBuilder Help</h1>
+		</div>
+		<div id="sidebar1">
+			<h3>Contents</h3>
+			<p>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li class="nodot">&nbsp;</li>
+					<li><a href="gearbuildertag.html">GearBuilder Tag</a></li>
+					<li class="nodot">&nbsp;</li>
+					<li><a href="license.html">License</a></li>
+				</ul>
+			</p>
+		</div>
+		<div id="mainContent">
+			<h1>The GearBuilder Tag</h1>
+			<p>The GearBuilder Tag is used to build up the complete gear. Each wheel or cogwheel gets its behaviour from a GearBuilder Tag.</p>
+			<p>The following picture shows a gear setup in the Object Manager. Note how the GearBuilder Tag always visualizes its current function with an appropriate icon.</p>
+			<p><img src="gearbuildertag_om.jpg" alt="Different GearBuilder Tags" align="right" /></p>
+			<p>With GearBuilder, you create the gear's behaviour by starting with an initial element (e.g. a motor) and then connect each new element (cogwheels etc) with an existing element. This way you define which element is driven by which. In the end, you will have a working gear that is completely driven by the rotation of one initial element.</p>
+			<p>Just attach the GearBuilder Tag to any kind of object. This maybe e.g. a Null Object group or an ExtrudeNURBS with a cogwheel spline.</p>
+			<h2>Mode</h2>
+			<p>The GearBuilder Tag offers two major modes:</p>
+			<p>
+				<ul>
+					<li><strong>Motor</strong><br />
+					A motor will set the object into motion by rotating it around its Z axis with a certain speed. If you deactivate the motor, you can rotate the object manually.<br />
+					Use this mode for the initial element of your gear, to set everything in motion.</li>
+					<li><strong>Connection</strong><br />
+					A connection will rotate the object according to a connected object, using a certain logic.<br />
+					Use this mode to build up the dependencies between your gear's elements.</li>
+				</ul>
+			</p>
+			<h2>Motor</h2>
+			<p>This parameter group only appears if the tag's Mode has been set to &quot;Motor&quot;.</p>
+			<p><img src="gearbuildertag_am_motor.jpg" alt="GearBuilder Tag attributes in Motor mode" /></p>
+			<h3>Active</h3>
+			<p>Switches the motor on or off.</p>
+			<h3>Speed</h3>
+			<p>Rotation speed in degrees per second (°/s).</p>
+			<h3>Offset</h3>
+			<p>Use this to manualle adjust the starting rotation of the object.</p>
+			<h2>Connection</h2>
+			<p>This parameter group only appears if the tag's Mode has been set to &quot;Connection&quot;.</p>
+			<p><img src="gearbuildertag_am_connection.jpg" alt="GearBuilder Tag attributes in Connection mode" /></p>
+			<h3>Connect to</h3>
+			<p>To create a dependency to another gear element, drag that element's GearBuilder Tag into this link field.</p>
+			<h3>Type</h3>
+			<p>You can again choose from three connection types:</p>
+			<p>
+				<ul>
+					<li><strong>Cogwheel</strong><br />
+					Create a cogwheel connection.<br />
+					The element will rotate in the opposite direction of the connected element, and the speed will depend from both elements' radius.</li>
+					<li><strong>Share axis</strong><br />
+					Create a shared axis connection<br />
+					The element will rotate exactly like the connected element. Use this to mount two elements on the same axis.</li>
+					<li><strong>Belt</strong><br />
+					Create a belt connection<br />
+					The element will rotate in the same direction as the connected element, and the speed will depend from both elements' radius.</li>
+				</ul>
+			</p>
+			<h3>Offset</h3>
+			<p>Use this parameter to adjust the basic rotation of the element, e.g. to make two cogwheels' teeth fit precisely into each other.</p>
+			<h3>Constrain Position</h3>
+			<p>This option helps editing the gear element's position.</p>
+			<p>If the Connection Type is set to &quot;Share axis&quot; the object can only be moved along the connected object's Z axis.</p>
+			<p>If the Connection Type is set to &quot;Cogwheel&quot; or &quot;Belt&quot;, the object can only be moved along the connected object's XY plane.</p>
+			<h3>Invert Rotation</h3>
+			<p>By default, GearBuilder will assume that the Z axes of your gear elements all point into the same direction. However, sometime you will find that you accidently built some elements having their Z axis point into the other direction. To adapt a connection to that, check this option.</p>
+			<h2>Properties</h2>
+			<h3>Link to Obj</h3>
+			<p>If you don't want to set the element's properties manually, you can inherit them from another object. Just drag an object into this link field. Cogwheel Splines, Circle Splines and the Cylinder primitive are allowed. The GearBuilder Tag will inherit their radius (Cogwheel Spline's Inner Radius will be used), and even a Cogwheel Spline's tooth count.</p>
+			<p>When nothing is linked here, the parameters can be set manually.</p>
+			<h3>Radius</h3>
+			<p>This is the element's radius. It is important to set a valid radius to make cogwheel and belt connections work.</p>
+			<h3>Tooth Count</h3>
+			<p>The amount of teeth on a cogwheel.</p>
+			<h2>Visualization</h2>
+			<h3>Draw Visualization</h3>
+			<p>Enable or disable the visualization.</p>
+			<h3>Circle</h3>
+			<p>Draw a 3D circle to visualize the element's position, alignment and radius.</p>
+			<p>Motors will draw a red circle, connections a blue circle.</p>
+			<h3>Connection</h3>
+			<p>Visualize the connection by drawing a line between the element the the connected element, as well as a little circle to mark the element's position.</p>
+			<p>Cogwheel connections will display in yellow, belt connections in orange and shared axis connections in green.</p>
+			<p>Motors will draw now connection, since they're not connected to anything.</p>
+		</div>
+		<br class="clearfloat" />
+		<div id="footer">
+			<p>2009 by <a href="http://www.c4d-jack.de" target="_blank">www.c4d-jack.de</a></p>
+		</div>
+	</div>
+</body>
+</html>
