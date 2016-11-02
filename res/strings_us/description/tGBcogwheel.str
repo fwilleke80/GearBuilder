@@ -1,0 +1,57 @@
+/////////////////////////////////////////////////////////////
+//
+// GearBuilder :: Cogwheel Tag
+//
+/////////////////////////////////////////////////////////////
+//
+// String table: English
+//
+/////////////////////////////////////////////////////////////
+// 2009-2010 by www.c4d-jack.de
+/////////////////////////////////////////////////////////////
+
+STRINGTABLE tGBcogwheel
+{
+	tGBcogwheel											"GearBuilder Tag";
+	
+	COGWHEEL_PROPERTIES							"Settings";
+
+	COGWHEEL_MODE										"Mode";
+	COGWHEEL_MODE_MOTOR							"Motor";
+	COGWHEEL_MODE_DRIVEN						"Connection";
+	
+	COGWHEEL_GROUP_MOTOR						"Motor";
+	COGWHEEL_MOTOR_ACTIVE						"Active";
+	COGWHEEL_MOTOR_SPEED						"Speed";
+	COGWHEEL_MOTOR_OFFSET						"Offset";
+
+	COGWHEEL_GROUP_CONNECTION				"Connection";
+	COGWHEEL_CONNECT_DRIVERTAG			"Connect to";
+	COGWHEEL_CONNECT_TYPE						"Type";
+	COGWHEEL_CONNECT_TYPE_COGWHEEL	"Cogwheel";
+	COGWHEEL_CONNECT_TYPE_SHARE			"Share Axis";
+	COGWHEEL_CONNECT_TYPE_BELT			"Belt";
+	COGWHEEL_CONNECT_OFFSET					"Offset";
+	COGWHEEL_CONNECT_INVERT					"Invert Rotation";
+	
+	COGWHEEL_CONNECT_BELT_LENGTH		"Belt Length";
+
+	COGWHEEL_CONNECT_CONSTRAIN			"Constrain Position";
+
+	COGWHEEL_GROUP_PROPERTIES				"Properties";
+	COGWHEEL_PROP_LINK							"Link to Obj";
+	COGWHEEL_PROP_RADIUS						"Radius";
+	COGWHEEL_PROP_TOOTHCOUNT				"Tooth Count";
+	
+	COGWHEEL_PROP_RADIUSGETFROM			"Get Radius From";
+	GETFROM_INNER											"Inner Radius";
+	GETFROM_MIDDLE										"Middle Radius";
+	GETFROM_OUTER											"Outer Radius";
+
+	COGWHEEL_GROUP_VIS							"Visualization";
+	COGWHEEL_VIS_ENABLED						"Draw Visualization";
+	COGWHEEL_VIS_DRAWCIRCLE					"Circle";
+	COGWHEEL_VIS_DRAWCONNECTION			"Connection";
+
+	COGWHEEL_CMD_OPENHELP						"Help";
+}

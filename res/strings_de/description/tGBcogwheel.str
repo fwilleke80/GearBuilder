@@ -1,0 +1,57 @@
+/////////////////////////////////////////////////////////////
+//
+// GearBuilder :: Cogwheel Tag
+//
+/////////////////////////////////////////////////////////////
+//
+// String table: German
+//
+/////////////////////////////////////////////////////////////
+// 2009-2010 by www.c4d-jack.de
+/////////////////////////////////////////////////////////////
+
+STRINGTABLE tGBcogwheel
+{
+	tGBcogwheel											"GearBuilder-Tag";
+	
+	COGWHEEL_PROPERTIES							"Einstellungen";
+
+	COGWHEEL_MODE										"Modus";
+	COGWHEEL_MODE_MOTOR							"Motor";
+	COGWHEEL_MODE_DRIVEN						"Verbindung";
+
+	COGWHEEL_GROUP_MOTOR						"Motor";
+	COGWHEEL_MOTOR_ACTIVE						"Aktiv";
+	COGWHEEL_MOTOR_SPEED						"Geschwindigkeit";
+	COGWHEEL_MOTOR_OFFSET						"Versatz";
+
+	COGWHEEL_GROUP_CONNECTION				"Verbindung";
+	COGWHEEL_CONNECT_DRIVERTAG			"Verbindung";
+	COGWHEEL_CONNECT_TYPE						"Typ";
+	COGWHEEL_CONNECT_TYPE_COGWHEEL	"Zahnrad";
+	COGWHEEL_CONNECT_TYPE_SHARE			"Gemeinsame Achse";
+	COGWHEEL_CONNECT_TYPE_BELT			"Riemen";
+	COGWHEEL_CONNECT_OFFSET					"Versatz";
+	COGWHEEL_CONNECT_INVERT					"Drehung invertieren";
+	
+	COGWHEEL_CONNECT_BELT_LENGTH		"Keilriemen L\u00E4nge";
+
+	COGWHEEL_CONNECT_CONSTRAIN			"Position beschr\u00E4nken";
+
+	COGWHEEL_GROUP_PROPERTIES				"Eigenschaften";
+	COGWHEEL_PROP_LINK							"Objektlink";
+	COGWHEEL_PROP_RADIUS						"Radius";
+	COGWHEEL_PROP_TOOTHCOUNT				"Anzahl Z\u00E4hne";
+
+	COGWHEEL_PROP_RADIUSGETFROM			"Radius holen von";
+	GETFROM_INNER											"Radius innen";
+	GETFROM_MIDDLE										"Radius Mitte";
+	GETFROM_OUTER											"Radius au\u00dfen";
+
+	COGWHEEL_GROUP_VIS							"Visualisierung";
+	COGWHEEL_VIS_ENABLED						"Visualisierung darstellen";
+	COGWHEEL_VIS_DRAWCIRCLE					"Kreis";
+	COGWHEEL_VIS_DRAWCONNECTION			"Verbindung";
+	
+	COGWHEEL_CMD_OPENHELP						"Hilfe";
+}
