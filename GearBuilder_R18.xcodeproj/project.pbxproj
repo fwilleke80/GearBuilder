@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		010089531DCAA89800F0EF13 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0100894F1DCAA89800F0EF13 /* main.cpp */; };
 		010089541DCAA89800F0EF13 /* tGBcogwheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 010089511DCAA89800F0EF13 /* tGBcogwheel.cpp */; };
+		010089591DCAAB5D00F0EF13 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 010089581DCAAB5D00F0EF13 /* main.h */; };
 		A0A6683339F470FF41010000 /* libcinema.framework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A6683339F470FF41000000 /* libcinema.framework.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		0100894F1DCAA89800F0EF13 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		010089511DCAA89800F0EF13 /* tGBcogwheel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tGBcogwheel.cpp; sourceTree = "<group>"; };
+		010089581DCAAB5D00F0EF13 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = src/main.h; sourceTree = SOURCE_ROOT; };
 		8ACD68381C66E7D100F34089 /* sanitizerbase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = sanitizerbase.xcconfig; path = ../../frameworks/settings/sanitizerbase.xcconfig; sourceTree = "<group>"; };
 		A08C5CDEA3A66833397B0000 /* GearBuilder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = GearBuilder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A668333900000000000000 /* debugbase.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = debugbase.xcconfig; path = ../../frameworks/settings/debugbase.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -106,8 +108,9 @@
 		A0A6683339CA90681B000000 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				0100894F1DCAA89800F0EF13 /* main.cpp */,
 				010089501DCAA89800F0EF13 /* tag */,
+				0100894F1DCAA89800F0EF13 /* main.cpp */,
+				010089581DCAAB5D00F0EF13 /* main.h */,
 			);
 			name = source;
 			path = ../source;
@@ -129,6 +132,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				010089591DCAAB5D00F0EF13 /* main.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +163,7 @@
 		A0A6683339000000003C0000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "MAXON Computer GmbH";
 			};
 			buildConfigurationList = A0A668333900000000410000 /* Build configuration list for PBXProject "GearBuilder_R18" */;
@@ -227,6 +231,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8ACD68381C66E7D100F34089 /* sanitizerbase.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -250,6 +256,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8ACD68381C66E7D100F34089 /* sanitizerbase.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -273,6 +281,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A0A668333900000000000000 /* debugbase.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -286,6 +296,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A0A668333900000000050000 /* releasebase.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				MAXON_ROOTDIR = ../../;

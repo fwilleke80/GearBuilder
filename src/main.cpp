@@ -1,50 +1,27 @@
 #include "c4d.h"
-#include "tGBcogwheelClass.h"
+#include "main.h"
 
-// forward declarations
-Bool RegisterGBcogwheel(void);
 
-// Declare Crash handler
-C4D_CrashHandler old_handler;
-
-#define VersionString String("GearBuilder 1.02")
-
-void SDKCrashHandler(CHAR *crashinfo)
+Bool PluginStart()
 {
-	// don't forget to call the original handler!!!
-	if (old_handler) (*old_handler)(crashinfo);
+	if (!RegisterGBcogwheel()) return false;
+
+	return true;
 }
 
-Bool PluginStart(void)
+void PluginEnd()
 {
-	// Installing the crash handler
-	old_handler = C4DOS.CrashHandler;		// backup the original handler (must be called!)
-	C4DOS.CrashHandler = SDKCrashHandler;	// insert the own handler
-	
-	GePrint("================================");
-	GePrint(VersionString);
-
-	// Register plugins
-	if (!RegisterGBcogwheel()) return FALSE;
-
-	return TRUE;
 }
 
-void PluginEnd(void)
+Bool PluginMessage(Int32 id, void *data)
 {
-	// Called when plugin is terminated
-}
-
-Bool PluginMessage(LONG id, void *data)
-{
-	// React to messages
 	switch (id)
 	{
 		case C4DPL_INIT_SYS:
 			// Don't start plugin without resources
-			if (!resource.Init()) return FALSE;
-			return TRUE;
+			if (!resource.Init()) return false;
+			return true;
 	}
 
-	return TRUE;
+	return true;
 }
