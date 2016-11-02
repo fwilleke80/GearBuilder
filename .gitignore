@@ -1,4 +1,3 @@
-
 *.xcworkspacedata
 
 *.xcuserstate
@@ -8,3 +7,5 @@
 *.xcscheme
 
 *.plist
+
+*.xcbkptlist
