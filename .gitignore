@@ -9,3 +9,5 @@
 *.plist
 
 *.xcbkptlist
+
+GearBuilder.dylib
