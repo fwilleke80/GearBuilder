@@ -1,13 +1,16 @@
+# OSX files
 *.xcworkspacedata
-
 *.xcuserstate
-
 *.xcsettings
-
-*.xcscheme
-
-*.plist
-
 *.xcbkptlist
+*.xcscheme
+*.plist
+*.dylib
 
-GearBuilder.dylib
+# Windows files
+*.exp
+*.cdl64
+*.opensdf
+*.sdf
+*.tlog
+*.lastbuildstate
