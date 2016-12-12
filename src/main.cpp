@@ -2,8 +2,12 @@
 #include "main.h"
 
 
+#define PLUGIN_VERSION	String("1.03")
+
+
 Bool PluginStart()
 {
+	GePrint("GearBuilder " + PLUGIN_VERSION);
 	if (!RegisterGBcogwheel()) return false;
 
 	return true;
