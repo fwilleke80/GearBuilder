@@ -2,20 +2,17 @@
 #include "main.h"
 
 
-#define PLUGIN_VERSION	String("1.03")
+#define PLUGIN_VERSION	String("1.04")
 
 
 Bool PluginStart()
 {
 	GePrint("GearBuilder " + PLUGIN_VERSION);
-	if (!RegisterGBcogwheel()) return false;
-
-	return true;
+	return RegisterGBcogwheel();
 }
 
 void PluginEnd()
-{
-}
+{ }
 
 Bool PluginMessage(Int32 id, void *data)
 {
@@ -23,8 +20,7 @@ Bool PluginMessage(Int32 id, void *data)
 	{
 		case C4DPL_INIT_SYS:
 			// Don't start plugin without resources
-			if (!resource.Init()) return false;
-			return true;
+			return resource.Init();
 	}
 
 	return true;

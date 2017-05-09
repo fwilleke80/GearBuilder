@@ -1,79 +1,30 @@
 #include "c4d.h"
-#include "c4d_symbols.h"
-#include "tGBcogwheel.h"
+#include "tGBcogwheel_class.h"
 #include "customgui_priority.h"
 #include "main.h"
-
-
-// Unique Plugin ID obtained from www.plugincafe.com
-static const Int32 ID_TGBCOGWHEEL	= 1024778;
-
-// Help path
-#define HelpFile GeGetPluginPath() + "help"
-
-
-// Plugin Class declaration
-class tGBcogwheel : public TagData
-{
-	INSTANCEOF(tGBcogwheel, TagData)
-	
-private:
-	BaseBitmap *icon_motor;
-	BaseBitmap *icon_cogwheel;
-	BaseBitmap *icon_belt;
-	BaseBitmap *icon_shareaxis;
-	
-public:
-	virtual Bool Init(GeListNode *node);
-	virtual Bool Message(GeListNode* node, Int32 type, void* data);
-	virtual Bool GetDEnabling(GeListNode *node, const DescID &id,const GeData &t_data,DESCFLAGS_ENABLE flags,const BaseContainer *itemdesc);
-	
-	virtual Bool GetDDescription(GeListNode *node, Description *description, DESCFLAGS_DESC &flags);
-	virtual EXECUTIONRESULT Execute(BaseTag* tag, BaseDocument* doc, BaseObject* op, BaseThread* bt, Int32 priority, EXECUTIONFLAGS flags);
-	virtual Bool Draw(BaseTag* tag, BaseObject* op, BaseDraw* bd, BaseDrawHelp* bh);
-	
-	// Icon storage
-	BaseBitmap *GetIcon_Cogwheel(void)		{ return icon_cogwheel; }
-	BaseBitmap *GetIcon_Motor(void)				{ return icon_motor; }
-	BaseBitmap *GetIcon_Belt(void)				{ return icon_belt; }
-	BaseBitmap *GetIcon_ShareAxis(void)		{ return icon_shareaxis; }
-	void SetIcon_Cogwheel(BaseBitmap *b)	{ icon_cogwheel = b; }
-	void SetIcon_Motor(BaseBitmap *b)			{ icon_motor = b; }
-	void SetIcon_Belt(BaseBitmap *b)			{ icon_belt = b; }
-	void SetIcon_ShareAxis(BaseBitmap *b)	{ icon_shareaxis = b; }
-	
-	static NodeData *Alloc(void) { return NewObjClear(tGBcogwheel); }
-	
-	// Clear icon storage on destruction
-	~tGBcogwheel(void)
-	{
-		BaseBitmap *icon = icon_cogwheel;
-		if (icon) BaseBitmap::Free(icon);
-		icon = icon_motor;
-		if (icon) BaseBitmap::Free(icon);
-		icon = icon_belt;
-		if (icon) BaseBitmap::Free(icon);
-		icon = icon_shareaxis;
-		if (icon) BaseBitmap::Free(icon);
-	}
-};
+#include "c4d_symbols.h"
+#include "tGBcogwheel.h"
 
 
 // Shows or hides a description from the node.
 static Bool ShowDescription(GeListNode *node, Description *descr, Int32 MyDescID, Bool DoHide)
 {
-	AutoAlloc<AtomArray> ar; if(!ar) return false;
+	AutoAlloc<AtomArray> ar;
+	if(!ar)
+		return false;
 	ar->Append(static_cast<C4DAtom*>(node));
 
 	BaseContainer *bc = descr->GetParameterI(DescLevel(MyDescID), ar);
-	if(bc) bc->SetBool(DESC_HIDE, !DoHide);
-	else return false;
+	if (!bc)
+		return false;
+
+	bc->SetBool(DESC_HIDE, !DoHide);
 
 	return true;
 }
 
 // Calculate length of belt
-static Float GetBeltLength(const Float r1, const Float r2, const Float d)
+static inline Float GetBeltLength(const Float r1, const Float r2, const Float d)
 {
 	Float r_small = FMin(r1, r2);
 	Float r_big = FMax(r1, r2);
@@ -81,7 +32,7 @@ static Float GetBeltLength(const Float r1, const Float r2, const Float d)
 }
 
 
-EXECUTIONRESULT tGBcogwheel::Execute(BaseTag* tag, BaseDocument* doc, BaseObject* op, BaseThread* bt, Int32 priority, EXECUTIONFLAGS flags)
+EXECUTIONRESULT tGBcogwheel::Execute(BaseTag *tag, BaseDocument *doc, BaseObject *op, BaseThread *bt, Int32 priority, EXECUTIONFLAGS flags)
 {
 	if (!doc || !op || !tag) return EXECUTIONRESULT_USERBREAK;
 
@@ -114,22 +65,25 @@ EXECUTIONRESULT tGBcogwheel::Execute(BaseTag* tag, BaseDocument* doc, BaseObject
 	else
 	{
 		// Variables
-		Float		cRadius = 0.0;
-		Float		radius = 0.0;
-		Vector	cRotation = Vector();
-		Vector	rotation = Vector();
-		Float		offset = 0.0;
-		Int32		type = 0;
+		Float   cRadius = 0.0;
+		Float   radius = 0.0;
+		Vector  cRotation = Vector();
+		Vector  rotation = Vector();
+		Float   offset = 0.0;
+		Int32   type = 0;
 
 		// Name tag after object
 		tag->SetName(op->GetName());
 
 		BaseTag	*cTag = (BaseTag*)bc->GetLink(COGWHEEL_CONNECT_DRIVERTAG, doc);
-		if (!cTag) return EXECUTIONRESULT_USERBREAK;
+		if (!cTag)
+			return EXECUTIONRESULT_USERBREAK;
 		BaseContainer *tc = cTag->GetDataInstance();
-		if (!tc) return EXECUTIONRESULT_USERBREAK;
+		if (!tc)
+			return EXECUTIONRESULT_USERBREAK;
 		BaseObject *cObj = cTag->GetObject();
-		if (!cObj) return EXECUTIONRESULT_USERBREAK;
+		if (!cObj)
+			return EXECUTIONRESULT_USERBREAK;
 
 		// Connection Type
 		type = bc->GetInt32(COGWHEEL_CONNECT_TYPE);
@@ -180,9 +134,9 @@ EXECUTIONRESULT tGBcogwheel::Execute(BaseTag* tag, BaseDocument* doc, BaseObject
 
 		if (constrain && cogwheelMode != COGWHEEL_MODE_MOTOR)
 		{
-			Matrix m(op->GetMg());				// Get global Matrix of this wheel
-			Matrix cm(cObj->GetMg());			// Get global Matrix of connected wheel
-			Vector pos(~cm * m.off);			// Transform position to connected wheel's local space
+			Matrix m(op->GetMg());        // Get global Matrix of this wheel
+			Matrix cm(cObj->GetMg());     // Get global Matrix of connected wheel
+			Vector pos(~cm * m.off);      // Transform position to connected wheel's local space
 
 			if (type == COGWHEEL_CONNECT_TYPE_SHARE)
 			{
@@ -213,7 +167,7 @@ EXECUTIONRESULT tGBcogwheel::Execute(BaseTag* tag, BaseDocument* doc, BaseObject
 Bool tGBcogwheel::Init(GeListNode *node)
 {
 	// Get pointer to tag's Container
-	BaseTag			*tag  = (BaseTag*)node;
+	BaseTag *tag  = static_cast<BaseTag*>(node);
 	BaseContainer	*data = tag->GetDataInstance();
 
 	// Cogwheel mode
@@ -241,46 +195,52 @@ Bool tGBcogwheel::Init(GeListNode *node)
 
   // Load Motor icon
  	BaseBitmap *icon = BaseBitmap::Alloc();
-	if (!icon) return false;
+	if (!icon)
+		return false;
 	Filename fn = GeGetPluginPath() + "res" + "tGBmotor.tif";
 	icon->Init(fn);
 	SetIcon_Motor(icon);
 
 	// Load Cogwheel icon
 	icon = BaseBitmap::Alloc();
-	if (!icon) return false;
+	if (!icon)
+		return false;
 	fn = GeGetPluginPath() + "res" + "tGBcogwheel.tif";
 	icon->Init(fn);
 	SetIcon_Cogwheel(icon);
 
 	// Load Belt icon
 	icon = BaseBitmap::Alloc();
-	if (!icon) return false;
+	if (!icon)
+		return false;
 	fn = GeGetPluginPath() + "res" + "tGBbelt.tif";
 	icon->Init(fn);
 	SetIcon_Belt(icon);
 
 	// Load Share Axis icon
 	icon = BaseBitmap::Alloc();
-	if (!icon) return false;
+	if (!icon)
+		return false;
 	fn = GeGetPluginPath() + "res" + "tGBshareaxis.tif";
 	icon->Init(fn);
 	SetIcon_ShareAxis(icon);
 
-	return true;
+	return SUPER::Init(node);
 }
 
 Bool tGBcogwheel::GetDDescription(GeListNode *node, Description *description, DESCFLAGS_DESC &flags)
 {
 	// Load description (user interface)
-	if (!description->LoadDescription(ID_TGBCOGWHEEL)) return false;
+	if (!description->LoadDescription(ID_TGBCOGWHEEL))
+		return false;
 	flags |= DESCFLAGS_DESC_LOADED;
 
 	// Get pointer to tag's Container
-	BaseTag			*tag  = (BaseTag*)node;
-	BaseContainer	*data = tag->GetDataInstance();
-	BaseDocument	*doc = tag->GetDocument();
-	if (!doc) return true;
+	BaseTag       *tag  = static_cast<BaseTag*>(node);
+	BaseContainer *data = tag->GetDataInstance();
+	BaseDocument  *doc = tag->GetDocument();
+	if (!doc)
+		return true;
 
 	BaseObject *pObj = data->GetObjectLink(COGWHEEL_PROP_LINK, doc);
 	if (pObj)
@@ -324,14 +284,20 @@ Bool tGBcogwheel::GetDDescription(GeListNode *node, Description *description, DE
 	// Show Belt length info, if connection type is set to "Belt"
 	ShowDescription(node, description, COGWHEEL_CONNECT_BELT_LENGTH, false);
 
-	return true;
+	return SUPER::GetDDescription(node, description, flags);
 }
 
-Bool tGBcogwheel::Message(GeListNode* node, Int32 type, void* data)
+Bool tGBcogwheel::Message(GeListNode *node, Int32 type, void *data)
 {
-	BaseTag *tag = (BaseTag*)node; if(!tag) return true;
-	BaseContainer *bc = tag->GetDataInstance(); if (!bc) return true;
-	BaseDocument *doc = tag->GetDocument(); if (!doc) return true;
+	BaseTag *tag = static_cast<BaseTag*>(node);
+	if (!tag)
+		return true;
+	BaseContainer *bc = tag->GetDataInstance();
+	if (!bc)
+		return true;
+	BaseDocument *doc = tag->GetDocument();
+	if (!doc)
+		return true;
 
 	switch (type)
 	{
@@ -392,25 +358,29 @@ Bool tGBcogwheel::Message(GeListNode* node, Int32 type, void* data)
 	return SUPER::Message(node, type, data);
 }
 
-Bool tGBcogwheel::Draw(BaseTag* tag, BaseObject* op, BaseDraw* bd, BaseDrawHelp* bh)
+Bool tGBcogwheel::Draw(BaseTag *tag, BaseObject *op, BaseDraw *bd, BaseDrawHelp *bh)
 {
 	// Variables
 	Matrix mCircle;
 	Vector col;
-	BaseTag *cTag = nullptr;			// Connected (driver) tag
-	BaseObject *cObj = nullptr;	// Connected (driver) object
+	BaseTag *cTag = nullptr;     // Connected (driver) tag
+	BaseObject *cObj = nullptr;  // Connected (driver) object
 	Int32 Mode = 0;
 	Float Radius = 0.0;
 	BaseDocument *doc = nullptr;
 	BaseContainer *bc = nullptr;
 
-	if (!op || !tag) return false;
+	if (!op || !tag)
+		return false;
 	doc = tag->GetDocument();
-	if (!doc) return false;
+	if (!doc)
+		return false;
 	bc = tag->GetDataInstance();
-	if (!bc) return false;
+	if (!bc)
+		return false;
 
-	if (bc->GetBool(COGWHEEL_VIS_ENABLED) != true) return true;
+	if (bc->GetBool(COGWHEEL_VIS_ENABLED) != true)
+		return true;
 
 	// Settings from Tag
 	Mode = bc->GetInt32(COGWHEEL_MODE);
@@ -436,9 +406,11 @@ Bool tGBcogwheel::Draw(BaseTag* tag, BaseObject* op, BaseDraw* bd, BaseDrawHelp*
 	if (Mode == COGWHEEL_MODE_DRIVEN && bc->GetBool(COGWHEEL_VIS_DRAWCONNECTION))
 	{
 		cTag = (BaseTag*)bc->GetLink(COGWHEEL_CONNECT_DRIVERTAG, doc);
-		if (!cTag) return false;
+		if (!cTag)
+			return false;
 		cObj = (BaseObject*)cTag->GetObject();
-		if (!cObj) return false;
+		if (!cObj)
+			return false;
 
 		Vector p1 = Vector(op->GetMg().off);
 		Vector p2 = Vector(cObj->GetMg().off);
@@ -460,7 +432,7 @@ Bool tGBcogwheel::Draw(BaseTag* tag, BaseObject* op, BaseDraw* bd, BaseDrawHelp*
 		bd->DrawCircle2D((Int32)p.x, (Int32)p.y, 5.0);
 	}
 
-	return true;
+	return SUPER::Draw(tag, op, bd, bh);
 }
 
 Bool tGBcogwheel::GetDEnabling(GeListNode *node, const DescID &id,const GeData &t_data,DESCFLAGS_ENABLE flags,const BaseContainer *itemdesc)
@@ -470,9 +442,11 @@ Bool tGBcogwheel::GetDEnabling(GeListNode *node, const DescID &id,const GeData &
 	
 	// Enable and disable ('gray out') user controls
 	BaseDocument *doc = node->GetDocument();
-	if (!doc) return false;
-	BaseContainer *data = ((BaseObject*)node)->GetDataInstance();
-	if (!data) return false;
+	if (!doc)
+		return false;
+	BaseContainer *data = static_cast<BaseObject*>(node)->GetDataInstance();
+	if (!data)
+		return false;
 
 	Bool propertyObject = (true && data->GetObjectLink(COGWHEEL_PROP_LINK, doc));
 	Bool propertyObjectIsCogwheel = false;
@@ -493,13 +467,11 @@ Bool tGBcogwheel::GetDEnabling(GeListNode *node, const DescID &id,const GeData &
 			return (!propertyObject && !propertyObjectIsCogwheel);
 	}
 
-	return true;
+	return SUPER::GetDEnabling(node, id, t_data, flags, itemdesc);
 }
 
 
 Bool RegisterGBcogwheel()
 {
-	// decide by name if the plugin shall be registered - just for user convenience
-	String name = GeLoadString(IDS_TGBCOGWHEEL); if (!name.Content()) return true;
-	return RegisterTagPlugin(ID_TGBCOGWHEEL, name, TAG_VISIBLE|TAG_EXPRESSION, tGBcogwheel::Alloc, "tGBcogwheel", AutoBitmap("tGBcogwheel.tif"), 0);
+	return RegisterTagPlugin(ID_TGBCOGWHEEL, GeLoadString(IDS_TGBCOGWHEEL), TAG_VISIBLE|TAG_EXPRESSION, tGBcogwheel::Alloc, "tGBcogwheel", AutoBitmap("tGBcogwheel.tif"), 0);
 }
