@@ -115,9 +115,9 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">.cdl</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GearBuilder</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.cdl64</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GearBuilder</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.cdl64</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">GearBuilder</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">.cdl64</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
